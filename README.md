@@ -150,5 +150,5 @@ git push heroku main
 ---
 
 ## **🔗 Connect With Me**  
-💼 [LinkedIn](https://www.linkedin.com/in/)  
+💼 [LinkedIn](linkedin.com/in/jacksonjacobl)  
 📧 Email: jackson24499@gmail.com  
