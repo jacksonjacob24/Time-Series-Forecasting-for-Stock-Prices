@@ -2,18 +2,36 @@
 
 
 ## **📌 Project Overview**  
-This project aims to predict **NIFTY-50 stock prices** using **Time Series Forecasting techniques**. The dataset consists of **NIFTY-50 stock market data (2000-2021)**. We have implemented **ARIMA** and **LSTM (Long Short-Term Memory)** models to forecast stock prices and deployed the model as a web application.  
+This project aims to predict **NIFTY-50 stock prices** using **Time Series Forecasting techniques**. The dataset consists of **NIFTY-50 stock market data (2000-2021)**. We have implemented **ARIMA** and **LSTM (Long Short-Term Memory)** models to forecast stock prices and deployed the model as a web application. This project helps investors, traders, and analysts gain insights into future price movements, improving decision-making in the stock market.
 
 ---
 
 ## **🚀 Features**  
-✅ **Data Preprocessing** – This involves cleaning raw stock market data by handling missing values, removing anomalies, and normalizing the data to ensure consistency in model training. Scaling techniques like MinMaxScaler or StandardScaler are used to transform the data for better model performance.  
-✅ **Exploratory Data Analysis (EDA)** – We analyze historical stock data trends using visualizations such as moving averages, candlestick charts, and seasonal decomposition to identify patterns and correlations in stock prices.  
+✅ **Data Preprocessing** – This involves multiple steps to clean and transform the raw stock market data:
+   - Handling **missing values** by imputation or removal to maintain consistency.
+   - Removing **outliers and anomalies** caused by market fluctuations or data errors.
+   - **Scaling** the data using MinMaxScaler or StandardScaler to normalize values for better model performance.
+   - **Splitting the data** into training and testing sets to evaluate model accuracy.
+
+✅ **Exploratory Data Analysis (EDA)** – EDA is performed to understand the historical patterns and trends in stock prices:
+   - **Moving Averages** help smooth fluctuations and highlight trends over time.
+   - **Candlestick Charts** provide a visual representation of open, high, low, and closing prices for better analysis.
+   - **Seasonal Decomposition** allows us to break down the stock prices into trend, seasonal, and residual components.
+   - **Correlation Analysis** helps identify relationships between different stock market indicators.
+
 ✅ **Time Series Forecasting Models**:  
-   - **ARIMA (AutoRegressive Integrated Moving Average)** – A traditional statistical model that captures trends, seasonality, and noise in time series data. It is suitable for stationary datasets and provides interpretable results.  
-   - **LSTM (Long Short-Term Memory Neural Networks)** – A deep learning model specifically designed to handle sequential data. LSTM captures long-term dependencies and patterns in stock price movement, making it effective for time series forecasting.  
-✅ **Evaluation Metrics** – We assess model performance using Root Mean Square Error (RMSE), Mean Absolute Error (MAE), and Mean Absolute Percentage Error (MAPE) to compare prediction accuracy.  
-✅ **Web App Deployment** – The trained model is integrated into a user-friendly web application using **Flask** and **Streamlit**. Users can input date ranges and visualize predicted stock prices in an interactive format.  
+   - **ARIMA (AutoRegressive Integrated Moving Average)** – A statistical method that models the time series by capturing trends, seasonality, and noise. It is useful for stationary datasets and provides interpretable results.
+   - **LSTM (Long Short-Term Memory Neural Networks)** – A deep learning model designed for sequential data that captures long-term dependencies in stock price movement. This makes it highly effective for predicting future stock prices.
+
+✅ **Evaluation Metrics** – The performance of the forecasting models is assessed using:
+   - **Root Mean Square Error (RMSE)** – Measures how much the predicted values deviate from actual values.
+   - **Mean Absolute Error (MAE)** – Calculates the average absolute error between predicted and actual values.
+   - **Mean Absolute Percentage Error (MAPE)** – Expresses forecast accuracy as a percentage, making it easier to interpret results.
+
+✅ **Web App Deployment** – The trained model is deployed using **Flask** and **Streamlit**, providing users with an interactive interface where they can:
+   - Input a date range for predictions.
+   - Visualize stock price trends through dynamic plots.
+   - Compare actual vs. predicted prices for performance evaluation.
 
 ---
 
@@ -21,41 +39,23 @@ This project aims to predict **NIFTY-50 stock prices** using **Time Series Forec
 - **Source**: [NIFTY-50 Stock Market Data (2000 - 2021) – Kaggle](https://www.kaggle.com/datasets)  
 - **Features**:  
   - **Date** (Index)  
-  - **Open, High, Low, Close Prices**  
-  - **Volume**  
-
----
-
-## **📌 Installation & Usage**  
-
-### **🔹 1. Clone the Repository**  
-```bash
-git clone https://github.com/your-github-username/nifty50-stock-prediction.git
-cd nifty50-stock-prediction
-```
-
-### **🔹 2. Install Dependencies**  
-```bash
-pip install -r requirements.txt
-```
-
-### **🔹 3. Run Jupyter Notebook for Training**  
-```bash
-jupyter notebook
-```
-Open `stock_forecasting.ipynb` and run all cells to train models.
+  - **Open Price** – The price at which trading begins for a given day.
+  - **High Price** – The highest price recorded for the stock during the trading day.
+  - **Low Price** – The lowest price recorded for the stock during the trading day.
+  - **Close Price** – The final trading price of the stock at market close.
+  - **Volume** – The number of shares traded during the day, indicating liquidity and market activity.
 
 ---
 
 ## **📊 Model Implementation**  
 
 ### **🔹 ARIMA Model**  
-The **ARIMA (AutoRegressive Integrated Moving Average)** model is a powerful statistical method used for **time series forecasting**. It consists of three components:
-- **AR (AutoRegressive)**: Uses past values to predict future values.
-- **I (Integrated)**: Differencing is applied to make the series stationary.
-- **MA (Moving Average)**: Uses past forecast errors for better predictions.
+The **ARIMA (AutoRegressive Integrated Moving Average)** model is a widely used statistical method for time series forecasting. It consists of three main components:
+- **AutoRegressive (AR)** – Uses past values to predict future values based on the assumption that past trends continue.
+- **Integrated (I)** – Differencing is applied to remove non-stationarity and stabilize the time series data.
+- **Moving Average (MA)** – Uses past forecast errors to refine predictions and improve accuracy.
 
-We implement ARIMA using `statsmodels`:  
+**Implementation using `statsmodels`:**  
 
 ```python
 from statsmodels.tsa.arima.model import ARIMA
@@ -68,20 +68,27 @@ arima_model = model.fit()
 arima_predictions = arima_model.forecast(steps=len(test))
 ```
 
-Pros:
+**Pros:**
 ✅ Works well with stationary time series.
-✅ Provides interpretable results with coefficients.
+✅ Provides interpretable results with clear coefficients.
+✅ Requires relatively low computational power compared to deep learning models.
 
-Cons:
+**Cons:**
 ❌ Struggles with non-linear data patterns.
-❌ Requires manual tuning of parameters.
+❌ Requires manual tuning of hyperparameters (p, d, q).
+❌ Less effective for complex stock price movements.
 
 ---
 
 ### **🔹 LSTM Model**  
-The **LSTM (Long Short-Term Memory)** model is a type of recurrent neural network (RNN) specifically designed for **sequence prediction problems**. It helps in capturing **long-term dependencies** in stock prices.
+The **LSTM (Long Short-Term Memory)** model is a type of recurrent neural network (RNN) that is specifically designed to capture long-term dependencies in time series data. Unlike traditional RNNs, LSTM mitigates the vanishing gradient problem using its memory cell mechanism.
 
-Implementation using TensorFlow/Keras:
+Key components of LSTM:
+- **Forget Gate** – Decides which information should be discarded from memory.
+- **Input Gate** – Determines which new information is relevant and should be added.
+- **Output Gate** – Controls how much of the stored information is used to influence the output.
+
+**Implementation using TensorFlow/Keras:**
 
 ```python
 from tensorflow.keras.models import Sequential
@@ -97,76 +104,15 @@ model.compile(optimizer='adam', loss='mean_squared_error')
 model.fit(X_train, y_train, epochs=20, batch_size=32)
 ```
 
-Pros:
-✅ Handles long-term dependencies well.
-✅ Captures complex non-linear relationships in stock data.
+**Pros:**
+✅ Handles long-term dependencies in stock price data effectively.
+✅ Captures complex non-linear relationships, leading to more accurate predictions.
+✅ Adaptable to different time series forecasting problems.
 
-Cons:
-❌ Requires large datasets and more computational power.
-❌ Training can be slow compared to ARIMA.
-
----
-
-## **🌐 Web App Deployment**  
-
-### **🔹 Run Flask App**  
-```bash
-python app.py
-```
-Access the app at: `http://127.0.0.1:5000/`
-
-### **🔹 Run Streamlit App**  
-```bash
-streamlit run app.py
-```
-Access the app at: `http://localhost:8501/`
-
----
-
-## **📌 Deployment on Heroku**  
-1️⃣ Install Heroku CLI  
-```bash
-sudo snap install --classic heroku
-```
-2️⃣ Login to Heroku  
-```bash
-heroku login
-```
-3️⃣ Deploy  
-```bash
-git init
-git add .
-git commit -m "Initial commit"
-heroku create
-git push heroku main
-```
-4️⃣ Access the deployed app via the Heroku URL.
-
----
-
-## **📊 Evaluation Metrics**  
-| Model | RMSE | MAE |  
-|--------|--------|--------|  
-| ARIMA | 150.25 | 98.13 |  
-| LSTM | 120.55 | 85.72 |  
-
----
-
-## **📌 Future Enhancements**  
-✅ Incorporate **Sentiment Analysis** using financial news data  
-✅ Improve performance with **Hybrid ARIMA-LSTM models**  
-✅ Add **real-time stock data API integration**  
-
----
-
-## **💻 Technologies Used**  
-- **Python** 🐍 – Programming language used for implementation.  
-- **Pandas, NumPy** 📊 – Used for data preprocessing and numerical computations.  
-- **Matplotlib, Seaborn** 📈 – Visualization libraries for EDA and stock trend analysis.  
-- **Statsmodels (ARIMA)** 📉 – Statistical package for time series modeling.  
-- **TensorFlow/Keras (LSTM)** 🤖 – Deep learning framework for building neural networks.  
-- **Flask, Streamlit (Deployment)** 🌍 – Web frameworks for deploying the prediction models.  
-- **Heroku (Cloud Deployment)** ☁️ – Cloud platform for hosting the web application.  
+**Cons:**
+❌ Requires large datasets and significant computational resources.
+❌ Training time is significantly longer than statistical models like ARIMA.
+❌ More prone to overfitting if not carefully regularized.
 
 ---
 
