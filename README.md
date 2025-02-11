@@ -117,6 +117,5 @@ model.fit(X_train, y_train, epochs=20, batch_size=32)
 ---
 
 ## **🔗 Connect With Me**  
-💼 [LinkedIn](https://www.linkedin.com/in/your-profile)  
-📧 Email: your-email@example.com  
-⭐ **If you like this project, don't forget to star the repo!** ⭐  
+💼 [LinkedIn](www.linkedin.com/in/jacksonjacobl)  
+📧 Email: your-jackson24499@gmail.com  
